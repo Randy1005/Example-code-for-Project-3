@@ -32,3 +32,40 @@ void GameItem::paint()
     g_pixmap.resetTransform();
     g_pixmap.setRotation(-(g_body->GetAngle()*180/3.14159));
 }
+
+
+/**
+ * @brief GameItem::setSubrect
+ * set new subrect on spritesheet
+ * @param newRect
+ */
+void GameItem::setSubrect(QRect newRect) {
+    mSubRect = newRect;
+}
+
+void GameItem::parseAnimDescription(QString filename) {
+    // convert JSON file to object
+        QFile jsonfile;
+        jsonfile.setFileName(filename);
+        jsonfile.open(QIODevice::ReadOnly | QIODevice::Text);
+
+        QJsonParseError jsonError;
+        QString val = jsonfile.readAll();
+        chrJsonDoc = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
+        if (jsonError.error) {
+            qWarning() << jsonError.errorString();
+            return;
+        }
+        jsonfile.close();
+
+        chrJsonObj = chrJsonDoc.object();
+
+        // parse animation descriptions
+        QJsonArray chrJsonArr = chrJsonObj["behaviors"].toArray();
+        foreach (const QJsonValue &val, chrJsonArr) {
+            QJsonObject obj = val.toObject();
+            if (obj["name"].toString() == "SpriteAnimationBehavior") {
+                animsArr = obj["params"].toObject()["anims"].toArray();
+            }
+        }
+}

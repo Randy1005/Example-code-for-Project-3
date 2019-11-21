@@ -6,6 +6,12 @@
 #include <QPainter>
 #include <QTransform>
 #include <QtMath>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QFile>
+#include <QDebug>
 
 class GameItem : public QObject
 {
@@ -14,6 +20,24 @@ public:
     GameItem(b2World *world);
     ~GameItem();
     static void setGlobalSize(QSizeF worldsize, QSizeF windowsize);
+    void parseAnimDescription(QString);
+    void setSubrect(QRect);
+
+    // character json description
+    QJsonObject chrJsonObj;
+    QJsonDocument chrJsonDoc;
+
+
+    // sprite subrect / sprite origin
+    QRect mSubRect;
+
+    // current animation / frame / subrect json array
+    QJsonObject mCurrAnim;
+    QJsonArray animsArr;
+    QJsonArray mSubRectArr;
+
+    QString mAnimName;
+    int mCurrFrame;
 
 public slots:
     void paint();

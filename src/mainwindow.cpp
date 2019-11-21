@@ -24,10 +24,10 @@ void MainWindow::showEvent(QShowEvent *)
     world = new b2World(b2Vec2(0.0f, -9.8f));
     // Setting Size
     GameItem::setGlobalSize(QSizeF(32,18),size());
-    // Create ground (You can edit here)
+    // Create ground
     itemList.push_back(new Land(16,1.5,32,3,QPixmap(":/ground.png").scaled(width(),height()/6.0),world,scene));
 
-    // Create bird (You can edit here)
+    // Create bird
     Bird *birdie = new Bird(0.0f,10.0f,0.27f,&timer,QPixmap(":/bird.png").scaled(height()/9.0,height()/9.0),world,scene);
     // Setting the Velocity
     birdie->setLinearVelocity(b2Vec2(5,5));

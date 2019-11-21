@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file alias="ground.png">image/GROUND.png</file>
         <file alias="bird.png">image/Normal_Bird_1.png</file>
+        <file>../sprites/industrial.v1.png</file>
+        <file>../sprites/industrial.v2.png</file>
     </qresource>
 </RCC>
