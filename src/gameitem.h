@@ -21,6 +21,7 @@ public:
     ~GameItem();
     static void setGlobalSize(QSizeF worldsize, QSizeF windowsize);
     void parseAnimDescription(QString);
+    void startAnim(QString);
     void setSubrect(QRect);
 
     // character json description
@@ -28,7 +29,7 @@ public:
     QJsonDocument chrJsonDoc;
 
 
-    // sprite subrect / sprite origin
+    // sprite subrect
     QRect mSubRect;
 
     // current animation / frame / subrect json array

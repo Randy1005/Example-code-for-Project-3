@@ -1,0 +1,75 @@
+{
+    "type": "character",
+    "name": "ziggy",
+    "sprite_name": ":/sprites/industrial.v2.png",
+    "behaviors": [
+        {
+            "name": "TransformBehavior",
+            "params": {
+                "position": [20, 20]
+            }
+        },
+        {
+            "name": "SpriteAnimationBehavior",
+            "params": {
+                "initialAnim": "idle",
+                "anims": [
+                    {
+                        "animName": "idle",
+                        "animFrames": [
+                            {"duration": 0.16, "rect": [0, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [16, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [32, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [48, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [64, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [80, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [96, 256, 16, 16]},
+                            {"duration": 0.16, "rect": [112, 256, 16, 16]}
+                        ]
+                    },
+                    {
+                        "animName": "move_up",
+                        "animFrames": [
+                            {"duration": 0.016, "rect": [32, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 32, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 32, 16, 16], "origin": [10, 10]}
+                        ]
+                    },
+                    {
+                        "animName": "move_down",
+                        "animFrames": [
+                            {"duration": 0.016, "rect": [32, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 48, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 48, 16, 16], "origin": [10, 10]}
+                        ]
+                    },
+                    {
+                        "animName": "move_left",
+                        "animFrames": [
+                            {"duration": 0.016, "rect": [32, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 16, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 16, 16, 16], "origin": [10, 10]}
+                        ]
+                    },
+                    {
+                        "animName": "move_right",
+                        "animFrames": [
+                            {"duration": 0.016, "rect": [32, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [0, 0, 16, 16], "origin": [10, 10]},
+                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]}
+                        ]
+                    }
+                ]
+            }
+        }
+
+
+    ]
+
+
+
+}

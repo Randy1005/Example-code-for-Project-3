@@ -12,7 +12,7 @@
 
 #include <gameitem.h>
 #include <land.h>
-#include <bird.h>
+#include <ziggy.h>
 
 namespace Ui {
 class MainWindow;

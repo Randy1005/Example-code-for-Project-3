@@ -31,6 +31,32 @@ void GameItem::paint()
     g_pixmap.setPos(mappedPoint);
     g_pixmap.resetTransform();
     g_pixmap.setRotation(-(g_body->GetAngle()*180/3.14159));
+
+    // parse current animation object, assign to mCurrentAnimation
+    // and increment frame index
+    foreach(const QJsonValue &val, animsArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["animName"].toString() == mAnimName) {
+            if (mCurrFrame < obj["animFrames"].toArray().size()-1) {
+                ++mCurrFrame;
+            } else {
+                mCurrFrame = 0;
+            }
+
+            mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
+
+            // update mSubRect
+            mSubRectArr = mCurrAnim["rect"].toArray();
+            setSubrect(QRect(mSubRectArr.at(0).toInt(),
+                             mSubRectArr.at(1).toInt(),
+                             mSubRectArr.at(2).toInt(),
+                             mSubRectArr.at(3).toInt()));
+        }
+    }
+
+    // update sprite image item (custom QGraphicsItem or QGraphicspixmapitem)
+    // need to partially draw image
+
 }
 
 
@@ -43,29 +69,61 @@ void GameItem::setSubrect(QRect newRect) {
     mSubRect = newRect;
 }
 
+/**
+ * @brief GameItem::parseAnimDescription
+ * parse json file and store character sprite animation info
+ * @param filename
+ */
 void GameItem::parseAnimDescription(QString filename) {
     // convert JSON file to object
-        QFile jsonfile;
-        jsonfile.setFileName(filename);
-        jsonfile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile jsonfile;
+    jsonfile.setFileName(filename);
+    jsonfile.open(QIODevice::ReadOnly | QIODevice::Text);
 
-        QJsonParseError jsonError;
-        QString val = jsonfile.readAll();
-        chrJsonDoc = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
-        if (jsonError.error) {
-            qWarning() << jsonError.errorString();
-            return;
+    QJsonParseError jsonError;
+    QString val = jsonfile.readAll();
+    chrJsonDoc = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
+    if (jsonError.error) {
+        qWarning() << jsonError.errorString();
+        return;
+    }
+    jsonfile.close();
+
+    chrJsonObj = chrJsonDoc.object();
+
+    // parse animation descriptions
+    QJsonArray chrJsonArr = chrJsonObj["behaviors"].toArray();
+    foreach (const QJsonValue &val, chrJsonArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["name"].toString() == "SpriteAnimationBehavior") {
+            animsArr = obj["params"].toObject()["anims"].toArray();
         }
-        jsonfile.close();
+    }
+}
 
-        chrJsonObj = chrJsonDoc.object();
+/**
+ * @brief GameItem::startAnim
+ * change the current animation,
+ * update the current sub-rect to draw to match the first frame of the new animation
+ * @param animName
+ */
 
-        // parse animation descriptions
-        QJsonArray chrJsonArr = chrJsonObj["behaviors"].toArray();
-        foreach (const QJsonValue &val, chrJsonArr) {
-            QJsonObject obj = val.toObject();
-            if (obj["name"].toString() == "SpriteAnimationBehavior") {
-                animsArr = obj["params"].toObject()["anims"].toArray();
-            }
+void GameItem::startAnim(QString animName) {
+    mAnimName = animName;
+
+    // parse current animation object, assign to mCurrentAnimation
+    foreach(const QJsonValue &val, animsArr) {
+        QJsonObject obj = val.toObject();
+        if (obj["animName"].toString() == animName) {
+            mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
         }
+    }
+
+    // assign to mSubRect
+    mSubRectArr = mCurrAnim["rect"].toArray();
+    mSubRect = QRect(mSubRectArr.at(0).toInt(),
+                     mSubRectArr.at(1).toInt(),
+                     mSubRectArr.at(2).toInt(),
+                     mSubRectArr.at(3).toInt());
+
 }

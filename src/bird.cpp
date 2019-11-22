@@ -24,8 +24,8 @@ Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2Worl
     g_body->SetAngularDamping(3);
     g_body->CreateFixture(&fixturedef);
 
-    // Bound timer
-    connect(timer, SIGNAL(timeout()), this,SLOT(paint()));
+    // Bind timer
+    connect(timer, SIGNAL(timeout()), this, SLOT(paint()));
 
     scene->addItem(&g_pixmap);
 }

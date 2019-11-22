@@ -27,11 +27,11 @@ void MainWindow::showEvent(QShowEvent *)
     // Create ground
     itemList.push_back(new Land(16,1.5,32,3,QPixmap(":/ground.png").scaled(width(),height()/6.0),world,scene));
 
-    // Create bird
-    Bird *birdie = new Bird(0.0f,10.0f,0.27f,&timer,QPixmap(":/bird.png").scaled(height()/9.0,height()/9.0),world,scene);
-    // Setting the Velocity
-    birdie->setLinearVelocity(b2Vec2(5,5));
-    itemList.push_back(birdie);
+    // Create main character
+
+
+s
+
     // Timer
     connect(&timer,SIGNAL(timeout()),this,SLOT(tick()));
     connect(this,SIGNAL(quitGame()),this,SLOT(QUITSLOT()));
