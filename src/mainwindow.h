@@ -42,6 +42,8 @@ private:
     b2World *world;
     QList<GameItem *> itemList;
     QTimer timer;
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -12,19 +12,20 @@
 #include <QJsonArray>
 #include <QFile>
 #include <QDebug>
+#include <spriteitem.h>
 
 class GameItem : public QObject
 {
     Q_OBJECT
 public:
-    GameItem(b2World *world);
+    GameItem(b2World *world, bool animated);
     ~GameItem();
     static void setGlobalSize(QSizeF worldsize, QSizeF windowsize);
     void parseAnimDescription(QString);
     void startAnim(QString);
     void setSubrect(QRect);
 
-    // character json description
+    // character json animation description
     QJsonObject chrJsonObj;
     QJsonDocument chrJsonDoc;
 
@@ -45,8 +46,9 @@ public slots:
     // TODO virtual void collide();
 
 protected:
+    bool g_animated;
     b2Body *g_body;
-    QGraphicsPixmapItem g_pixmap;
+    SpriteItem *mSprite;
     QSizeF g_size;
     b2World *g_world;
     static QSizeF g_worldsize, g_windowsize;

@@ -17,20 +17,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::showEvent(QShowEvent *)
 {
-    // Setting the QGraphicsScene
+
+    // Setting QGraphicsScene
     scene = new QGraphicsScene(0,0,width(),ui->graphicsView->height());
     ui->graphicsView->setScene(scene);
+
     // Create world
     world = new b2World(b2Vec2(0.0f, -9.8f));
+
     // Setting Size
     GameItem::setGlobalSize(QSizeF(32,18),size());
+
     // Create ground
-    itemList.push_back(new Land(16,1.5,32,3,QPixmap(":/ground.png").scaled(width(),height()/6.0),world,scene));
+    itemList.push_back(new Land(16, 1.5, 32, 3, QPixmap(":/ground.png").scaled(width(), height()*0.25), world, scene));
 
     // Create main character
+    itemList.push_back(new Ziggy(16, 1.5, 10, 10, &timer, QPixmap(":/sprites/industrual.v2.png"), world, scene));
 
 
-s
 
     // Timer
     connect(&timer,SIGNAL(timeout()),this,SLOT(tick()));

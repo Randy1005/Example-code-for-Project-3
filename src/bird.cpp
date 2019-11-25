@@ -1,11 +1,12 @@
 #include "bird.h"
 
-Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):GameItem(world)
+Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):GameItem(world, false)
 {
     // Set pixmap
-    g_pixmap.setPixmap(pixmap);
-    g_pixmap.setTransformOriginPoint(g_pixmap.boundingRect().width()/2,g_pixmap.boundingRect().height()/2);
-    g_size = QSize(radius*2,radius*2);
+    mSprite->setPixmap(pixmap);
+    mSprite->setTransformOriginPoint(mSprite->boundingRect().width()/2, mSprite->boundingRect().height()/2);
+    g_size = QSize(radius*2, radius*2);
+
 
     // Create Body
     b2BodyDef bodydef;
@@ -27,7 +28,7 @@ Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2Worl
     // Bind timer
     connect(timer, SIGNAL(timeout()), this, SLOT(paint()));
 
-    scene->addItem(&g_pixmap);
+    scene->addItem(mSprite);
 }
 
 void Bird::setLinearVelocity(b2Vec2 velocity)

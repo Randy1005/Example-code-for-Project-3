@@ -1,10 +1,12 @@
 #include "gameitem.h"
 
 #include <iostream>
+#include <QDebug>
 
-GameItem::GameItem(b2World *world):
-    g_body(NULL),g_world(world)
+GameItem::GameItem(b2World *world, bool animated):
+    g_body(NULL),g_world(world), g_animated(animated)
 {
+    mSprite = new SpriteItem();
 }
 
 GameItem::~GameItem()
@@ -23,40 +25,42 @@ void GameItem::setGlobalSize(QSizeF worldsize, QSizeF windowsize)
 
 void GameItem::paint()
 {
+
     b2Vec2 pos = g_body->GetPosition();
-    //std::cout << g_body->GetAngle() << std::endl;
     QPointF mappedPoint;
     mappedPoint.setX(((pos.x-g_size.width()/2) * g_windowsize.width())/g_worldsize.width());
     mappedPoint.setY((1.0f - (pos.y+g_size.height()/2)/g_worldsize.height()) * g_windowsize.height());
-    g_pixmap.setPos(mappedPoint);
-    g_pixmap.resetTransform();
-    g_pixmap.setRotation(-(g_body->GetAngle()*180/3.14159));
+    mSprite->setPos(mappedPoint);
+    mSprite->resetTransform();
+    mSprite->setRotation(-(g_body->GetAngle()*180/3.14159));
 
     // parse current animation object, assign to mCurrentAnimation
     // and increment frame index
-    foreach(const QJsonValue &val, animsArr) {
-        QJsonObject obj = val.toObject();
-        if (obj["animName"].toString() == mAnimName) {
-            if (mCurrFrame < obj["animFrames"].toArray().size()-1) {
-                ++mCurrFrame;
-            } else {
-                mCurrFrame = 0;
+    if (g_animated) {
+        foreach(const QJsonValue &val, animsArr) {
+            QJsonObject obj = val.toObject();
+            if (obj["animName"].toString() == mAnimName) {
+                if (mCurrFrame < obj["animFrames"].toArray().size()-1) {
+                    ++mCurrFrame;
+                } else {
+                    mCurrFrame = 0;
+                }
+
+                mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
+
+                // update mSubRect
+                mSubRectArr = mCurrAnim["rect"].toArray();
+
+                // update sprite image item (custom QGraphicsPixmapitem class)
+                // partially draw image
+                mSprite->setSubRegion(QRectF(mSubRectArr.at(0).toInt(),
+                                             mSubRectArr.at(1).toInt(),
+                                             mSubRectArr.at(2).toInt(),
+                                             mSubRectArr.at(3).toInt()));
+
             }
-
-            mCurrAnim = obj["animFrames"].toArray().at(mCurrFrame).toObject();
-
-            // update mSubRect
-            mSubRectArr = mCurrAnim["rect"].toArray();
-            setSubrect(QRect(mSubRectArr.at(0).toInt(),
-                             mSubRectArr.at(1).toInt(),
-                             mSubRectArr.at(2).toInt(),
-                             mSubRectArr.at(3).toInt()));
         }
     }
-
-    // update sprite image item (custom QGraphicsItem or QGraphicspixmapitem)
-    // need to partially draw image
-
 }
 
 
