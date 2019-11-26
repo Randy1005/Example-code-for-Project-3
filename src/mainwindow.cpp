@@ -20,7 +20,9 @@ void MainWindow::showEvent(QShowEvent *)
 
     // Setting QGraphicsScene
     scene = new QGraphicsScene(0,0,width(),ui->graphicsView->height());
+    scene->setBackgroundBrush(QBrush(QColor("black")));
     ui->graphicsView->setScene(scene);
+
 
     // Create world
     world = new b2World(b2Vec2(0.0f, -9.8f));
@@ -78,6 +80,5 @@ void MainWindow::tick()
 
 void MainWindow::QUITSLOT()
 {
-    // For debug
-    std::cout << "Quit Game Signal receive !" << std::endl ;
+    std::cout << "Quit Game Signal received!" << std::endl ;
 }

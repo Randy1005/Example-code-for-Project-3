@@ -39,7 +39,7 @@ void GameItem::paint()
         foreach(const QJsonValue &val, animsArr) {
             QJsonObject obj = val.toObject();
             if (obj["animName"].toString() == mAnimName) {
-                if (mCurrFrame < obj["animFrames"].toArray().size()-1) {
+                if (mCurrFrame < obj["animFrames"].toArray().size()) {
                     ++mCurrFrame;
                 } else {
                     mCurrFrame = 0;

@@ -23,7 +23,7 @@ Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
     mSprite->setSubRegion(QRectF(0, 256, 16, 16));
 
     // scale sprite
-    mSprite->setScale(5.2);
+    mSprite->setScale(5.5);
 
     mSprite->setTransformOriginPoint(mSprite->boundingRect().width()/2, mSprite->boundingRect().height()/2);
     g_size = QSize(w, h);
@@ -96,13 +96,16 @@ bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
         } else if (keyEvent->key() == Qt::Key_Left) {
             setLinearVelocity(b2Vec2(-8, 0));
             startAnim("move_right");
-        } else if (keyEvent->key() == Qt::Key_Up && !isJumping) {
-
+        } else if (keyEvent->key() == Qt::Key_Space) {
+            startAnim("attack");
+        } else if (keyEvent->key() == Qt::Key_S) {
+            startAnim("hadouken");
         }
 
         return true;
     } else if (event->type() == QEvent::KeyRelease) {
         startAnim("idle");
+        return true;
     }
 
     return false;
