@@ -8,3 +8,4 @@ release/ziggy.o
 release/qrc_res.o
 release/moc_mainwindow.o
 release/moc_gameitem.o
+release/moc_ziggy.o

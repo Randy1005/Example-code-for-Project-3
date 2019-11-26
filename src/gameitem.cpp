@@ -25,7 +25,6 @@ void GameItem::setGlobalSize(QSizeF worldsize, QSizeF windowsize)
 
 void GameItem::paint()
 {
-
     b2Vec2 pos = g_body->GetPosition();
     QPointF mappedPoint;
     mappedPoint.setX(((pos.x-g_size.width()/2) * g_windowsize.width())/g_worldsize.width());
@@ -57,6 +56,8 @@ void GameItem::paint()
                                              mSubRectArr.at(1).toInt(),
                                              mSubRectArr.at(2).toInt(),
                                              mSubRectArr.at(3).toInt()));
+                if (spriteFlipped) mSprite->setTransform(QTransform::fromScale(-1, 1));
+
 
             }
         }

@@ -28,7 +28,7 @@
                         ]
                     },
                     {
-                        "animName": "move_up",
+                        "animName": "attack",
                         "animFrames": [
                             {"duration": 0.016, "rect": [32, 32, 16, 16], "origin": [10, 10]},
                             {"duration": 0.016, "rect": [16, 32, 16, 16], "origin": [10, 10]},
@@ -37,7 +37,7 @@
                         ]
                     },
                     {
-                        "animName": "move_down",
+                        "animName": "jump",
                         "animFrames": [
                             {"duration": 0.016, "rect": [32, 48, 16, 16], "origin": [10, 10]},
                             {"duration": 0.016, "rect": [16, 48, 16, 16], "origin": [10, 10]},
@@ -57,10 +57,14 @@
                     {
                         "animName": "move_right",
                         "animFrames": [
-                            {"duration": 0.016, "rect": [32, 0, 16, 16], "origin": [10, 10]},
-                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]},
-                            {"duration": 0.016, "rect": [0, 0, 16, 16], "origin": [10, 10]},
-                            {"duration": 0.016, "rect": [16, 0, 16, 16], "origin": [10, 10]}
+                            {"duration": 0.16, "rect": [0, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [16, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [32, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [48, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [64, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [80, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [96, 272, 16, 16]},
+                            {"duration": 0.16, "rect": [112, 272, 16, 16]}
                         ]
                     }
                 ]

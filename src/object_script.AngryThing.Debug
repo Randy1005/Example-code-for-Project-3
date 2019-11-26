@@ -8,3 +8,4 @@ debug/ziggy.o
 debug/qrc_res.o
 debug/moc_mainwindow.o
 debug/moc_gameitem.o
+debug/moc_ziggy.o

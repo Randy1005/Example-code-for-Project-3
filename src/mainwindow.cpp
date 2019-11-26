@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     // Enable the event Filter
-    qApp->installEventFilter(this);
+    // qApp->installEventFilter(this);
 }
 
 MainWindow::~MainWindow()
@@ -29,17 +29,18 @@ void MainWindow::showEvent(QShowEvent *)
     GameItem::setGlobalSize(QSizeF(32,18),size());
 
     // Create ground
-    itemList.push_back(new Land(16, 1.5, 32, 3, QPixmap(":/ground.png").scaled(width(), height()*0.25), world, scene));
+    itemList.push_back(new Land(16, 1.5, 32, 3, QPixmap(":/ground.png").scaled(width(), height()/6.0), world, scene));
 
     // Create main character
-    itemList.push_back(new Ziggy(16, 1.5, 10, 10, &timer, QPixmap(":/sprites/industrual.v2.png"), world, scene));
-
+    Ziggy *zig = new Ziggy(10.0f, 5.0f, 0.15f, 0.15f, &timer, QPixmap(":/sprites/industrial.v2.png"), world, scene);
+    itemList.push_back(zig);
+    qApp->installEventFilter(zig);
 
 
     // Timer
     connect(&timer,SIGNAL(timeout()),this,SLOT(tick()));
     connect(this,SIGNAL(quitGame()),this,SLOT(QUITSLOT()));
-    timer.start(100/6);
+    timer.start(100/5);
 }
 
 bool MainWindow::eventFilter(QObject *, QEvent *event)

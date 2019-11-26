@@ -1,6 +1,7 @@
 #include "bird.h"
 
-Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):GameItem(world, false)
+Bird::Bird(float x, float y, float radius, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):
+    GameItem(world, false)
 {
     // Set pixmap
     mSprite->setPixmap(pixmap);

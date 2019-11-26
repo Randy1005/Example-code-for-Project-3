@@ -47,6 +47,7 @@ public slots:
 
 protected:
     bool g_animated;
+    bool spriteFlipped;
     b2Body *g_body;
     SpriteItem *mSprite;
     QSizeF g_size;
