@@ -12,7 +12,11 @@
 
 #include <gameitem.h>
 #include <land.h>
+#include <platform.h>
 #include <ziggy.h>
+#include <slime.h>
+#include <debugdraw.h>
+#include <contactlistener.h>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +32,7 @@ public:
     void showEvent(QShowEvent *);
     bool eventFilter(QObject *,QEvent *event);
     void closeEvent(QCloseEvent *);
+    void viewPortTranslate();
 signals:
     // Signal for closing the game
     void quitGame();
@@ -42,7 +47,8 @@ private:
     b2World *world;
     QList<GameItem *> itemList;
     QTimer timer;
-
+    Ziggy *ziggy;
+    ContactListener *contactListenrInstance;
 
 };
 

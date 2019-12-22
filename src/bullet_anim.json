@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "name": "bullet",
+    "sprite_name": ":/sprites/industrial.v2.png",
+    "behaviors": [
+        {
+            "name": "TransformBehavior",
+            "params": {
+                "position": [20, 20]
+            }
+        },
+        {
+            "name": "SpriteAnimationBehavior",
+            "params": {
+                "initialAnim": "travel",
+                "anims": [
+                    {
+                        "animName": "travel",
+                        "animFrames": [
+                            {"duration": 0.16, "rect": [64, 290, 20, 10]},
+                            {"duration": 0.16, "rect": [96, 290, 20, 10]},
+                            {"duration": 0.16, "rect": [128, 290, 20, 10]},
+                            {"duration": 0.16, "rect": [160, 290, 20, 10]}
+                        ]
+                    }
+
+                ]
+            }
+        }
+
+    ]
+
+}

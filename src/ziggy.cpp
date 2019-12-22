@@ -12,7 +12,7 @@
  * @param scene
  */
 Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):
-    GameItem(world, true), isJumping(false)
+    GameItem(world, true), isJumping(false), tmr(timer), world(world), scene(scene)
 {
     spriteFlipped = false;
 
@@ -35,6 +35,7 @@ Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
     bodyDef.position.Set(x, y);
     bodyDef.userData = this;
     g_body = world->CreateBody(&bodyDef);
+    g_body->SetFixedRotation(true);
 
     // define shape
     b2PolygonShape boxShape;
@@ -77,6 +78,15 @@ void Ziggy::applyImpulse(b2Vec2 force) {
     g_body->ApplyLinearImpulse(force, g_body->GetWorldCenter(), true);
 }
 
+b2Vec2 Ziggy::getPosition() {
+    return g_body->GetPosition();
+}
+
+
+void Ziggy::fire() {
+    BulletWave *newBullet = new BulletWave(this->getPosition().x, this->getPosition().y, 0.15f, 0.15f, tmr, QPixmap(":/sprites/industrial.v2.png"), world, scene);
+    newBullet->applyImpulse(b2Vec2(10, 0));
+}
 
 /**
  * @brief Ziggy::eventFilter
@@ -85,9 +95,10 @@ void Ziggy::applyImpulse(b2Vec2 force) {
  * @return
  */
 bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
+    Q_UNUSED(obj)
+
 
     // may need a FSM here if we want more sophisticated animations
-
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Right) {
@@ -96,10 +107,13 @@ bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
         } else if (keyEvent->key() == Qt::Key_Left) {
             setLinearVelocity(b2Vec2(-8, 0));
             startAnim("move_right");
+        } else if (keyEvent->key() == Qt::Key_Up){
+            applyImpulse(b2Vec2(0, 20));
         } else if (keyEvent->key() == Qt::Key_Space) {
             startAnim("attack");
         } else if (keyEvent->key() == Qt::Key_S) {
             startAnim("hadouken");
+            fire();
         }
 
         return true;

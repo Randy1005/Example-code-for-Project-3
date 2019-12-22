@@ -1,6 +1,7 @@
 #include "land.h"
 
-Land::Land(float x, float y, float w, float h, QPixmap pixmap, b2World *world, QGraphicsScene *scene):GameItem(world, false)
+Land::Land(float x, float y, float w, float h, QPixmap pixmap, b2World *world, QGraphicsScene *scene)
+    : GameItem(world, false)
 {
     // Set pixmap
     mSprite->setPixmap(pixmap);

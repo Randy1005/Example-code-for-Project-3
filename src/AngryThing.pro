@@ -13,10 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+    bulletwave.cpp \
+    contactlistener.cpp \
+    debugdraw.cpp \
         mainwindow.cpp \
     gameitem.cpp \
     bird.cpp \
     land.cpp \
+    platform.cpp \
+    slime.cpp \
     spriteitem.cpp \
     ziggy.cpp
 
@@ -68,9 +73,14 @@ HEADERS  += mainwindow.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     Box2D/Box2D.h \
+    bulletwave.h \
+    contactlistener.h \
+    debugdraw.h \
     gameitem.h \
     bird.h \
     land.h \
+    platform.h \
+    slime.h \
     spriteitem.h \
     ziggy.h
 
@@ -80,3 +90,5 @@ LIBS += -L. -lBox2D
 
 RESOURCES += \
     res.qrc
+
+DISTFILES +=

@@ -1,0 +1,34 @@
+{
+    "type": "character",
+    "name": "slime",
+    "sprite_name": ":/sprites/industrial.v2.png",
+    "behaviors": [
+        {
+            "name": "TransformBehavior",
+            "params": {
+                "position": [20, 20]
+            }
+        },
+        {
+            "name": "SpriteAnimationBehavior",
+            "params": {
+                "initialAnim": "idle",
+                "anims": [
+                    {
+                        "animName": "idle",
+                        "animFrames": [
+                            {"duration": 0.16, "rect": [112, 320, 16, 16]},
+                            {"duration": 0.16, "rect": [128, 320, 16, 16]},
+                            {"duration": 0.16, "rect": [144, 320, 16, 16]},
+                            {"duration": 0.16, "rect": [160, 320, 16, 16]},
+                            {"duration": 0.16, "rect": [176, 320, 16, 16]}
+                        ]
+                    }
+
+                ]
+            }
+        }
+
+    ]
+
+}

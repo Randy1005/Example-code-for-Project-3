@@ -1,11 +1,17 @@
 release/main.o
+release/bulletwave.o
+release/contactlistener.o
+release/debugdraw.o
 release/mainwindow.o
 release/gameitem.o
 release/bird.o
 release/land.o
+release/platform.o
+release/slime.o
 release/spriteitem.o
 release/ziggy.o
 release/qrc_res.o
 release/moc_mainwindow.o
+release/moc_bulletwave.o
 release/moc_gameitem.o
 release/moc_ziggy.o

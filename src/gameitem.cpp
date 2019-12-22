@@ -56,8 +56,6 @@ void GameItem::paint()
                                              mSubRectArr.at(1).toInt(),
                                              mSubRectArr.at(2).toInt(),
                                              mSubRectArr.at(3).toInt()));
-                if (spriteFlipped) mSprite->setTransform(QTransform::fromScale(-1, 1));
-
 
             }
         }

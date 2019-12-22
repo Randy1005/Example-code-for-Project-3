@@ -5,5 +5,7 @@
         <file>../sprites/industrial.v1.png</file>
         <file>../sprites/industrial.v2.png</file>
         <file>ziggy_anim.json</file>
+        <file>slime_anim.json</file>
+        <file>bullet_anim.json</file>
     </qresource>
 </RCC>
