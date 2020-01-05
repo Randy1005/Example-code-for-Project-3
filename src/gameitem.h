@@ -13,13 +13,13 @@
 #include <QFile>
 #include <QDebug>
 #include <spriteitem.h>
-
+#include <string>
 class GameItem : public QObject
 {
     Q_OBJECT
 public:
     GameItem(b2World *world, bool animated);
-    ~GameItem();
+    virtual ~GameItem();
     static void setGlobalSize(QSizeF worldsize, QSizeF windowsize);
     void parseAnimDescription(QString);
     void startAnim(QString);

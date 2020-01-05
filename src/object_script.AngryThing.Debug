@@ -2,9 +2,9 @@ debug/main.o
 debug/bulletwave.o
 debug/contactlistener.o
 debug/debugdraw.o
+debug/hpbar.o
 debug/mainwindow.o
 debug/gameitem.o
-debug/bird.o
 debug/land.o
 debug/platform.o
 debug/slime.o

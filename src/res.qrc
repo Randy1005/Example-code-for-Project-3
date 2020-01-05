@@ -7,5 +7,6 @@
         <file>ziggy_anim.json</file>
         <file>slime_anim.json</file>
         <file>bullet_anim.json</file>
+        <file>../sprites/hpbar.png</file>
     </qresource>
 </RCC>

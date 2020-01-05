@@ -2,9 +2,9 @@ release/main.o
 release/bulletwave.o
 release/contactlistener.o
 release/debugdraw.o
+release/hpbar.o
 release/mainwindow.o
 release/gameitem.o
-release/bird.o
 release/land.o
 release/platform.o
 release/slime.o

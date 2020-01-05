@@ -11,7 +11,6 @@ GameItem::GameItem(b2World *world, bool animated):
 
 GameItem::~GameItem()
 {
-    g_world->DestroyBody(g_body);
 }
 
 QSizeF GameItem::g_windowsize = QSizeF();

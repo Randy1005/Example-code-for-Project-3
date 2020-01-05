@@ -1,8 +1,14 @@
 #include "slime.h"
 
 Slime::Slime(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):
-    GameItem(world, true)
+    GameItem(world, true), scene(scene)
 {
+    // define userDataStruct
+    udstruct = new udStruct;
+    udstruct->charactePtr = this;
+    udstruct->id = 1;
+
+
     // Set pixmap
     mSprite->setPixmap(pixmap);
 
@@ -20,7 +26,7 @@ Slime::Slime(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
     bodyDef.type = b2_dynamicBody;
     bodyDef.bullet = true;
     bodyDef.position.Set(x, y);
-    bodyDef.userData = this;
+    bodyDef.userData = (void *)udstruct;
     g_body = world->CreateBody(&bodyDef);
     g_body->SetFixedRotation(true);
 
@@ -48,6 +54,11 @@ Slime::Slime(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
 
 }
 
+Slime::~Slime() {
+    g_world->DestroyBody(g_body);
+    scene->removeItem(mSprite);
+}
+
 void Slime::setLinearVelocity(b2Vec2 velocity) {
     g_body->SetLinearVelocity(velocity);
 }
@@ -55,3 +66,8 @@ void Slime::setLinearVelocity(b2Vec2 velocity) {
 void Slime::applyImpulse(b2Vec2 force) {
     g_body->ApplyLinearImpulse(force, g_body->GetWorldCenter(), true);
 }
+
+b2Vec2 Slime::getPosition() {
+    return g_body->GetPosition();
+}
+

@@ -8,6 +8,8 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <bulletwave.h>
+#include <hpbar.h>
+#include <commonInfo.h>
 
 
 
@@ -16,10 +18,14 @@ class Ziggy : public GameItem
     Q_OBJECT
 public:
     Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene);
+    ~Ziggy() override;
     void setLinearVelocity(b2Vec2 velocity);
     void applyImpulse(b2Vec2 force);
     b2Vec2 getPosition();
+    HPbar* getHPBar();
+    int getHP();
     void fire();
+    void HPDecrement();
     bool eventFilter(QObject *obj, QEvent *event) override;
 
     const float ZIGGY_DENTSITY = 12.0f;
@@ -31,6 +37,9 @@ protected:
     QTimer *tmr;
     b2World *world;
     QGraphicsScene *scene;
+    udStruct *udstruct;
+    int HP;
+    HPbar *hpbar;
 
 };
 

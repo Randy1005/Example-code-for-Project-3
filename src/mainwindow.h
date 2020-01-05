@@ -33,6 +33,8 @@ public:
     bool eventFilter(QObject *,QEvent *event);
     void closeEvent(QCloseEvent *);
     void viewPortTranslate();
+    void gameItemRemoval();
+
 signals:
     // Signal for closing the game
     void quitGame();
@@ -45,11 +47,13 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     b2World *world;
-    QList<GameItem *> itemList;
+    std::vector<GameItem *> itemList;
     QTimer timer;
     Ziggy *ziggy;
-    ContactListener *contactListenrInstance;
+    ContactListener *contactListenerInstance;
 
 };
+
+
 
 #endif // MAINWINDOW_H

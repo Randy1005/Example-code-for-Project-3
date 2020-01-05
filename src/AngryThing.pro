@@ -16,9 +16,9 @@ SOURCES += main.cpp\
     bulletwave.cpp \
     contactlistener.cpp \
     debugdraw.cpp \
+    hpbar.cpp \
         mainwindow.cpp \
     gameitem.cpp \
-    bird.cpp \
     land.cpp \
     platform.cpp \
     slime.cpp \
@@ -74,10 +74,11 @@ HEADERS  += mainwindow.h \
     Box2D/Rope/b2Rope.h \
     Box2D/Box2D.h \
     bulletwave.h \
+    commonInfo.h \
     contactlistener.h \
     debugdraw.h \
     gameitem.h \
-    bird.h \
+    hpbar.h \
     land.h \
     platform.h \
     slime.h \

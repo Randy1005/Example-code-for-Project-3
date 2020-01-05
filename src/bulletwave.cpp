@@ -1,8 +1,13 @@
 #include "bulletwave.h"
 
 BulletWave::BulletWave(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene) :
-    GameItem(world, true), m_contacting(false)
+    GameItem(world, true), m_contacting(false), scene(scene)
 {
+    // define userDataStruct
+    udstruct = new udStruct;
+    udstruct->id = 2;
+    udstruct->charactePtr = this;
+
     // Set pixmap
     mSprite->setPixmap(pixmap);
 
@@ -20,7 +25,7 @@ BulletWave::BulletWave(float x, float y, float w, float h, QTimer *timer, QPixma
     bodyDef.type = b2_dynamicBody;
     bodyDef.bullet = true;
     bodyDef.position.Set(x, y);
-    bodyDef.userData = this;
+    bodyDef.userData = (void *)udstruct;
     g_body = world->CreateBody(&bodyDef);
     g_body->SetFixedRotation(true);
 
@@ -46,7 +51,9 @@ BulletWave::BulletWave(float x, float y, float w, float h, QTimer *timer, QPixma
 
     scene->addItem(mSprite);
     startAnim("travel");
+}
 
+BulletWave::~BulletWave() {
 
 }
 
@@ -58,13 +65,4 @@ b2Vec2 BulletWave::getPosition() {
     return g_body->GetPosition();
 }
 
-void BulletWave::startContact() {
-    m_contacting = true;
-    qDebug() << "bulletwave start contacting";
-}
-
-void BulletWave::endContact() {
-    m_contacting = false;
-    qDebug() << "bulletwave end contacting";
-}
 

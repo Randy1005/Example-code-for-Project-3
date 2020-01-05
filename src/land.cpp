@@ -3,6 +3,12 @@
 Land::Land(float x, float y, float w, float h, QPixmap pixmap, b2World *world, QGraphicsScene *scene)
     : GameItem(world, false)
 {
+
+    // define userDataStruct
+    udstruct = new udStruct;
+    udstruct->id = 4;
+    udstruct->charactePtr = this;
+
     // Set pixmap
     mSprite->setPixmap(pixmap);
     mSprite->setSubRegion(QRectF(0, 0, mSprite->boundingRect().width(), mSprite->boundingRect().height()));
@@ -11,7 +17,7 @@ Land::Land(float x, float y, float w, float h, QPixmap pixmap, b2World *world, Q
 
     // Create body
     b2BodyDef bodyDef;
-    bodyDef.userData = this;
+    bodyDef.userData = (void *)udstruct;
     bodyDef.position.Set(x,y);
     g_body = world->CreateBody(&bodyDef);
     b2PolygonShape bodyBox;

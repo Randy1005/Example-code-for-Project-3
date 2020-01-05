@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -8,7 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     // Enable the event Filter
     qApp->installEventFilter(this);
-    contactListenrInstance = new ContactListener();
+
+    // contact listener instance (for collision callbacks)
+    contactListenerInstance = new ContactListener(itemList);
+
 
 }
 
@@ -26,7 +31,7 @@ void MainWindow::showEvent(QShowEvent *) {
 
     // Create world
     world = new b2World(b2Vec2(0.0f, -9.8f));
-    world->SetContactListener(contactListenrInstance);
+    world->SetContactListener(contactListenerInstance);
 
     // Setting Size
     GameItem::setGlobalSize(QSizeF(32, 18), size());
@@ -43,13 +48,13 @@ void MainWindow::showEvent(QShowEvent *) {
 
 
     // Create main character
-    ziggy = new Ziggy(10.0f, 5.0f, 0.15f, 0.15f, &timer, QPixmap(":/sprites/industrial.v2.png"), world, scene);
+    ziggy = new Ziggy(10.0f, 5.0f, 1.0f, 0.3f, &timer, QPixmap(":/sprites/industrial.v2.png"), world, scene);
     itemList.push_back(ziggy);
     qApp->installEventFilter(ziggy);
 
 
     // Create slimes
-    itemList.push_back(new Slime(50.0f, 5.0f, 0.2f, 0.2f, &timer, QPixmap(":/sprites/industrial.v2.png"), world, scene));
+    itemList.push_back(new Slime(10.0f, 30.0f, 1.0f, 0.3f, &timer, QPixmap(":/sprites/industrial.v2.png"), world, scene));
 
     DebugDraw debugDraw(scene);
     world->SetDebugDraw(&debugDraw);
@@ -86,7 +91,9 @@ void MainWindow::closeEvent(QCloseEvent *) {
 void MainWindow::tick() {
     world->Step(1.0/60.0,6,2);
     viewPortTranslate();
+    gameItemRemoval();
     scene->update();
+    ziggy->getHPBar()->update(ziggy->getHP());
 }
 
 void MainWindow::QUITSLOT() {
@@ -110,5 +117,32 @@ void MainWindow::viewPortTranslate() {
         scene->setSceneRect(scene_rect);
 
     }
+
+}
+
+void MainWindow::gameItemRemoval() {
+
+    if (ContactListener::itemsScheduledForRemoval.empty()) {
+        return;
+    }
+
+    contactListenerInstance->item_list = itemList;
+
+    std::vector<GameItem *>::iterator it = ContactListener::itemsScheduledForRemoval.begin();
+    std::vector<GameItem *>::iterator end = ContactListener::itemsScheduledForRemoval.end();
+
+    for (; it != end; ++it) {
+        GameItem *itemToBeDeleted = *it;
+
+        delete itemToBeDeleted;
+
+        std::vector<GameItem *>::iterator it = std::find(ContactListener::itemsScheduledForRemoval.begin(),
+                                                         ContactListener::itemsScheduledForRemoval.end(),
+                                                         itemToBeDeleted);
+              if (it != ContactListener::itemsScheduledForRemoval.end())
+                  ContactListener::itemsScheduledForRemoval.erase(it);
+    }
+
+    ContactListener::itemsScheduledForRemoval.clear();
 
 }

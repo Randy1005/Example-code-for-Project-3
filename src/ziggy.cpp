@@ -14,7 +14,22 @@
 Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):
     GameItem(world, true), isJumping(false), tmr(timer), world(world), scene(scene)
 {
+
+    HP = 50;
+
+    // define userDataStruct
+    udstruct = new udStruct;
+    udstruct->id = 999;
+    udstruct->charactePtr = this;
+
     spriteFlipped = false;
+
+    // new HP bar
+    hpbar = new HPbar(scene->sceneRect().left()+10,
+                      scene->sceneRect().top(),
+                      QPixmap(":/sprites/hpbar.png"),
+                      scene);
+
 
     // Set pixmap
     mSprite->setPixmap(pixmap);
@@ -33,7 +48,7 @@ Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
     bodyDef.type = b2_dynamicBody;
     bodyDef.bullet = true;
     bodyDef.position.Set(x, y);
-    bodyDef.userData = this;
+    bodyDef.userData = (void *)udstruct;
     g_body = world->CreateBody(&bodyDef);
     g_body->SetFixedRotation(true);
 
@@ -61,6 +76,11 @@ Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
 
 }
 
+Ziggy::~Ziggy() {
+    g_world->DestroyBody(g_body);
+    scene->removeItem(mSprite);
+}
+
 /**
  * @brief Ziggy::setLinearVelocity
  * set the velocity of this game item
@@ -82,10 +102,24 @@ b2Vec2 Ziggy::getPosition() {
     return g_body->GetPosition();
 }
 
+HPbar* Ziggy::getHPBar() {
+    return hpbar;
+}
+
+
+int Ziggy::getHP() {
+    return HP;
+}
 
 void Ziggy::fire() {
     BulletWave *newBullet = new BulletWave(this->getPosition().x, this->getPosition().y, 0.15f, 0.15f, tmr, QPixmap(":/sprites/industrial.v2.png"), world, scene);
     newBullet->applyImpulse(b2Vec2(10, 0));
+}
+
+void Ziggy::HPDecrement() {
+    HP--;
+    qDebug() << "ouch" << " HP: " << HP;
+
 }
 
 /**
@@ -108,7 +142,7 @@ bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
             setLinearVelocity(b2Vec2(-8, 0));
             startAnim("move_right");
         } else if (keyEvent->key() == Qt::Key_Up){
-            applyImpulse(b2Vec2(0, 20));
+            applyImpulse(b2Vec2(0, 80));
         } else if (keyEvent->key() == Qt::Key_Space) {
             startAnim("attack");
         } else if (keyEvent->key() == Qt::Key_S) {
