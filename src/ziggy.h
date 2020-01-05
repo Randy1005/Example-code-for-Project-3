@@ -10,6 +10,7 @@
 #include <bulletwave.h>
 #include <hpbar.h>
 #include <commonInfo.h>
+#include <QMediaPlayer>
 
 
 
@@ -33,13 +34,15 @@ public:
     const float ZIGGY_RESTITUTION = 0.5f;
 
 protected:
-    bool isJumping;
+    bool isSwingingSword;
     QTimer *tmr;
     b2World *world;
     QGraphicsScene *scene;
     udStruct *udstruct;
     int HP;
     HPbar *hpbar;
+    QMediaPlayer *bulletWaveSFX;
+    QMediaPlayer *oofSFX;
 
 };
 

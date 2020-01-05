@@ -8,5 +8,10 @@
         <file>slime_anim.json</file>
         <file>bullet_anim.json</file>
         <file>../sprites/hpbar.png</file>
+        <file>../sprites/resetButton.png</file>
+        <file>../sounds/hurt.mp3</file>
+        <file>../sounds/pew.wav</file>
+        <file>../sounds/platformer_bgm.mp3</file>
+        <file>../sounds/oof.wav</file>
     </qresource>
 </RCC>

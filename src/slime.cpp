@@ -48,6 +48,7 @@ Slime::Slime(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, 
 
     // connect timer
     connect(timer, SIGNAL(timeout()), this, SLOT(paint()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(moveAround()));
 
     scene->addItem(mSprite);
     startAnim("idle");
@@ -70,4 +71,18 @@ void Slime::applyImpulse(b2Vec2 force) {
 b2Vec2 Slime::getPosition() {
     return g_body->GetPosition();
 }
+
+void Slime::moveAround() {
+    std::mt19937 generator(rd());
+
+    // random direction (or still)
+    std::uniform_int_distribution<int> dis(0, 2);
+    int rndDir = dis(generator);
+
+    if (g_body->GetLinearVelocity().x == 0.0 && g_body->GetLinearVelocity().y == 0) {
+        applyImpulse(b2Vec2(directions[rndDir] * 200, 0));
+    }
+}
+
+
 

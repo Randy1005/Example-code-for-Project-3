@@ -11,6 +11,7 @@ GameItem::GameItem(b2World *world, bool animated):
 
 GameItem::~GameItem()
 {
+
 }
 
 QSizeF GameItem::g_windowsize = QSizeF();
@@ -128,4 +129,8 @@ void GameItem::startAnim(QString animName) {
                      mSubRectArr.at(2).toInt(),
                      mSubRectArr.at(3).toInt());
 
+}
+
+b2Body* GameItem::getBody() {
+    return g_body;
 }

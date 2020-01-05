@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+            multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,6 +22,7 @@ SOURCES += main.cpp\
     gameitem.cpp \
     land.cpp \
     platform.cpp \
+    resetball.cpp \
     slime.cpp \
     spriteitem.cpp \
     ziggy.cpp
@@ -81,6 +83,7 @@ HEADERS  += mainwindow.h \
     hpbar.h \
     land.h \
     platform.h \
+    resetball.h \
     slime.h \
     spriteitem.h \
     ziggy.h

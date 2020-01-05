@@ -10,11 +10,13 @@
 #include <QMouseEvent>
 #include <iostream>
 
+#include <QMediaPlayer>
 #include <gameitem.h>
 #include <land.h>
 #include <platform.h>
 #include <ziggy.h>
 #include <slime.h>
+#include <resetball.h>
 #include <debugdraw.h>
 #include <contactlistener.h>
 
@@ -34,6 +36,8 @@ public:
     void closeEvent(QCloseEvent *);
     void viewPortTranslate();
     void gameItemRemoval();
+    void spawnResetBall();
+    void resetGame();
 
 signals:
     // Signal for closing the game
@@ -50,8 +54,9 @@ private:
     std::vector<GameItem *> itemList;
     QTimer timer;
     Ziggy *ziggy;
+    ResetBall *rsBall;
     ContactListener *contactListenerInstance;
-
+    QMediaPlayer *BGM;
 };
 
 

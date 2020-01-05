@@ -54,7 +54,8 @@ BulletWave::BulletWave(float x, float y, float w, float h, QTimer *timer, QPixma
 }
 
 BulletWave::~BulletWave() {
-
+    g_world->DestroyBody(g_body);
+    scene->removeItem(mSprite);
 }
 
 void BulletWave::applyImpulse(b2Vec2 force) {

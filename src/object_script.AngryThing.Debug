@@ -7,6 +7,7 @@ debug/mainwindow.o
 debug/gameitem.o
 debug/land.o
 debug/platform.o
+debug/resetball.o
 debug/slime.o
 debug/spriteitem.o
 debug/ziggy.o
@@ -14,4 +15,5 @@ debug/qrc_res.o
 debug/moc_mainwindow.o
 debug/moc_bulletwave.o
 debug/moc_gameitem.o
+debug/moc_slime.o
 debug/moc_ziggy.o

@@ -12,10 +12,14 @@
  * @param scene
  */
 Ziggy::Ziggy(float x, float y, float w, float h, QTimer *timer, QPixmap pixmap, b2World *world, QGraphicsScene *scene):
-    GameItem(world, true), isJumping(false), tmr(timer), world(world), scene(scene)
+    GameItem(world, true), isSwingingSword(false), tmr(timer), world(world), scene(scene)
 {
 
     HP = 50;
+    bulletWaveSFX = new QMediaPlayer();
+    bulletWaveSFX->setMedia(QUrl("qrc:/sounds/pew.wav"));
+    oofSFX = new QMediaPlayer();
+    oofSFX->setMedia(QUrl("qrc:/sounds/oof.wav"));
 
     // define userDataStruct
     udstruct = new udStruct;
@@ -113,13 +117,26 @@ int Ziggy::getHP() {
 
 void Ziggy::fire() {
     BulletWave *newBullet = new BulletWave(this->getPosition().x, this->getPosition().y, 0.15f, 0.15f, tmr, QPixmap(":/sprites/industrial.v2.png"), world, scene);
-    newBullet->applyImpulse(b2Vec2(10, 0));
+    newBullet->applyImpulse(b2Vec2(4, 0));
+
+    if (bulletWaveSFX->state() == QMediaPlayer::PlayingState) {
+        bulletWaveSFX->setPosition(0);
+    } else if (bulletWaveSFX->state() == QMediaPlayer::StoppedState) {
+        bulletWaveSFX->play();
+    }
 }
 
 void Ziggy::HPDecrement() {
-    HP--;
-    qDebug() << "ouch" << " HP: " << HP;
+    HP-=5;
+    if (oofSFX->state() == QMediaPlayer::PlayingState) {
+        oofSFX->setPosition(0);
+    } else if (oofSFX->state() == QMediaPlayer::StoppedState) {
+        oofSFX->play();
+    }
 
+    if (HP < 0) {
+        HP = 50;
+    }
 }
 
 /**
@@ -142,9 +159,10 @@ bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
             setLinearVelocity(b2Vec2(-8, 0));
             startAnim("move_right");
         } else if (keyEvent->key() == Qt::Key_Up){
-            applyImpulse(b2Vec2(0, 80));
+            applyImpulse(b2Vec2(0, 200));
         } else if (keyEvent->key() == Qt::Key_Space) {
             startAnim("attack");
+            isSwingingSword = true;
         } else if (keyEvent->key() == Qt::Key_S) {
             startAnim("hadouken");
             fire();
@@ -153,6 +171,7 @@ bool Ziggy::eventFilter(QObject *obj, QEvent *event) {
         return true;
     } else if (event->type() == QEvent::KeyRelease) {
         startAnim("idle");
+        isSwingingSword = false;
         return true;
     }
 

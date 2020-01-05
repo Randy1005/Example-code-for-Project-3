@@ -19,11 +19,12 @@ class GameItem : public QObject
     Q_OBJECT
 public:
     GameItem(b2World *world, bool animated);
-    virtual ~GameItem();
+    ~GameItem();
     static void setGlobalSize(QSizeF worldsize, QSizeF windowsize);
     void parseAnimDescription(QString);
     void startAnim(QString);
     void setSubrect(QRect);
+    b2Body* getBody();
 
     // character json animation description
     QJsonObject chrJsonObj;

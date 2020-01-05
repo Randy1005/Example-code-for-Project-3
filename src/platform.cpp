@@ -15,7 +15,7 @@ Platform::Platform(float x, float y, float w, float h, QPixmap pixmap, b2World *
     g_size = QSize(w,h);
 
     // scale this subRegion
-    mSprite->setScale(4.5);
+    mSprite->setScale(7.5);
 
 
     // Create body

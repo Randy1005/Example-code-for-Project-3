@@ -18,6 +18,7 @@ public:
     static std::vector<GameItem *> itemsScheduledForRemoval;
 
     std::vector<GameItem *> item_list;
+    QMediaPlayer *slimeSFX;
 };
 
 
